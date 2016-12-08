@@ -27,7 +27,7 @@ goTrack
 
 1. `goTrack init` <-- this initialize the repo installing git hooks
 	1.  git hook -> on commit: Parses all the project and create issues with all specific tags and such
-2. `goTrack list` <-- show all the issues in this repo
+2. `goTrack list` <-- show all the issues in this repo with their ID
 
 
 

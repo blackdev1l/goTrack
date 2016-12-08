@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// TODO REFACTORING
+// TODO  TEST
 func GetIssues(filename string) bool {
 	file, _ := os.Open(filename)
 	scanner := bufio.NewScanner(file)
