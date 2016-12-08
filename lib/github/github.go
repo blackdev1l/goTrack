@@ -1,13 +1,15 @@
-package main
+package github
 
 import (
 	"fmt"
-	"github.com/google/go-github/github"
-	"golang.org/x/oauth2"
 	"os"
+	"github.com/google/go-github/github"
+/*  Imports used in examples
+	"golang.org/x/oauth2"
 	"os/exec"
 	"regexp"
 	"strings"
+*/
 )
 
 func printIssues(client *github.Client, author string, name string) {
@@ -26,6 +28,17 @@ func printIssues(client *github.Client, author string, name string) {
 	}
 }
 
+func createIssue(client *github.Client, author string, name string, title string, body string) *github.Issue {
+	issueRequest := github.IssueRequest{Title: &title, Body: &body}
+	issue, _, err := client.Issues.Create(author, name, &issueRequest)
+	if err != nil {
+		println("Couldn't create issue.")
+		return nil
+	}
+	return issue
+}
+
+/* Example usage
 func main() {
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: os.Getenv("GOTRACK")},
@@ -49,6 +62,8 @@ func main() {
 	repoAuthor := repoParts[1]
 	repoName := repoParts[2]
 
+	createIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
 	println("Printing issues...")
 	printIssues(client, repoAuthor, repoName)
 }
+*/
