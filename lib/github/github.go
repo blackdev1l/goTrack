@@ -12,7 +12,7 @@ import (
 */
 )
 
-func printIssues(client *github.Client, author string, name string) {
+func PrintIssues(client *github.Client, author string, name string) {
 	issues, _, err := client.Issues.ListByRepo(author, name, nil)
 
 	if err != nil {
@@ -28,7 +28,7 @@ func printIssues(client *github.Client, author string, name string) {
 	}
 }
 
-func createIssue(client *github.Client, author string, name string, title string, body string) *github.Issue {
+func CreateIssue(client *github.Client, author string, name string, title string, body string) *github.Issue {
 	issueRequest := github.IssueRequest{Title: &title, Body: &body}
 	issue, _, err := client.Issues.Create(author, name, &issueRequest)
 	if err != nil {
@@ -62,8 +62,8 @@ func main() {
 	repoAuthor := repoParts[1]
 	repoName := repoParts[2]
 
-	createIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
+	CreateIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
 	println("Printing issues...")
-	printIssues(client, repoAuthor, repoName)
+	PrintIssues(client, repoAuthor, repoName)
 }
 */
