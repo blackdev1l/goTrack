@@ -2,14 +2,13 @@ package github
 
 import (
 	"fmt"
-	"os"
 	"github.com/google/go-github/github"
-/*  Imports used in examples
 	"golang.org/x/oauth2"
+	"log"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
-*/
 )
 
 func PrintIssues(client *github.Client, author string, name string) {
@@ -28,14 +27,27 @@ func PrintIssues(client *github.Client, author string, name string) {
 	}
 }
 
-func CreateIssue(client *github.Client, author string, name string, title string, body string) *github.Issue {
-	issueRequest := github.IssueRequest{Title: &title, Body: &body}
-	issue, _, err := client.Issues.Create(author, name, &issueRequest)
+func CreateIssue(client *github.Client, issueReq *github.IssueRequest) *github.Issue {
+	author, repo := getRepoInfo()
+	log.Println(*issueReq.Title)
+	issue, _, err := client.Issues.Create(author, repo, issueReq)
 	if err != nil {
 		println("Couldn't create issue.")
+		log.Fatalln(err)
 		return nil
 	}
 	return issue
+}
+
+func GetClient() *github.Client {
+
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: os.Getenv("GOTRACK")},
+	)
+	tc := oauth2.NewClient(oauth2.NoContext, ts)
+	client := github.NewClient(tc)
+
+	return client
 }
 
 /* Example usage
@@ -46,6 +58,13 @@ func main() {
 	tc := oauth2.NewClient(oauth2.NoContext, ts)
 	client := github.NewClient(tc)
 
+	CreateIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
+	println("Printing issues...")
+	PrintIssues(client, repoAuthor, repoName)
+}
+*/
+
+func getRepoInfo() (author, repo string) {
 	gitArgs := []string{"remote", "show", "origin"}
 	gitOutput, err := exec.Command("git", gitArgs...).Output()
 	if err != nil {
@@ -59,11 +78,7 @@ func main() {
 		print("Couldn't parse repository URL.")
 		os.Exit(1)
 	}
-	repoAuthor := repoParts[1]
-	repoName := repoParts[2]
-
-	CreateIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
-	println("Printing issues...")
-	PrintIssues(client, repoAuthor, repoName)
+	author = repoParts[1]
+	repository := repoParts[2]
+	return author, repository
 }
-*/

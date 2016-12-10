@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// TODO use os.TempFile()
 func TestSetHooks(t *testing.T) {
 	os.MkdirAll("tmp/.git", 0777)
 	folder, err := os.Getwd()

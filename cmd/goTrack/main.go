@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/blackdev1l/goTrack/lib/api"
+	"github.com/blackdev1l/goTrack/lib/github"
+	"github.com/blackdev1l/goTrack/lib/parser"
 	"github.com/urfave/cli"
 	"log"
 	"os"
@@ -28,15 +30,19 @@ func main() {
 				return nil
 			},
 		},
-		/*
-			{
-				Name:    "scan",
-				Aliases: []string{"s"},
-				Usage:   "scan repo for new //TODO in project",
-				Action: func(c *cli.Context) error {
-					return scan()
-				},
-			},*/
+		{
+			Name:    "scan",
+			Aliases: []string{"s"},
+			Usage:   "scan repo for new //TODO in project",
+			Action: func(c *cli.Context) error {
+				client := github.GetClient()
+				issues := parser.Scan()
+				for _, issue := range issues {
+					github.CreateIssue(client, &issue)
+				}
+				return nil
+			},
+		},
 	}
 
 	app.Run(os.Args)
