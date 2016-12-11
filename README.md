@@ -6,7 +6,8 @@
 ## Usage
 `goTrack i[nit]` inside the top level of a git repo with the remote hosted on github
 this will install a pre-commit hook which will scan the diff before a commit and create an issue when it will find a "TODO" in a comment.
-**note** you will need a github authorization token, you can create one [here](https://github.com/settings/tokens)
+
+**note:** you will need a github authorization token, you can create one [here](https://github.com/settings/tokens)
 
 ## Token
 Authorization token will be read by the environment variable `GOTRACK`
@@ -14,7 +15,7 @@ Authorization token will be read by the environment variable `GOTRACK`
 * for zsh users: `echo 'export GOTRACK=<token> >> ~/.zshrc'
 
 ### TODO TAG 
-You can use any kind of comment tag, the only thing it matters is that you will use the word "TAG" in caps lock, otherwise it will be ignored.
+You can use any kind of comment tag, the only thing it matters is that you will use the word "TODO" in caps lock, otherwise it will be ignored.
 Todo tags will be parsed this way:
 `TODO <title> - <label> - <assignee>` other stuff after that will be ignored.
 
