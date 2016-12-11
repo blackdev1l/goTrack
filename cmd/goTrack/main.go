@@ -7,11 +7,25 @@ import (
 	"github.com/urfave/cli"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
 	app := cli.NewApp()
-
+	app.Name = "goTrack"
+	app.Version = "0.1.0"
+	app.Compiled = time.Now()
+	app.Authors = []cli.Author{
+		cli.Author{
+			Name:  "Cristian Achille",
+			Email: "blackdev1l@autistici.org",
+		},
+		cli.Author{
+			Name:  "CapacitorSet",
+			Email: "capacitorset@gmail.com",
+		},
+	}
+	app.Description = "Handy script for automating issue cretion on github and more"
 	app.Commands = []cli.Command{
 		{
 			Name:    "init",

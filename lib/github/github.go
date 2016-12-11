@@ -50,20 +50,6 @@ func GetClient() *github.Client {
 	return client
 }
 
-/* Example usage
-func main() {
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: os.Getenv("GOTRACK")},
-	)
-	tc := oauth2.NewClient(oauth2.NoContext, ts)
-	client := github.NewClient(tc)
-
-	CreateIssue(client, repoAuthor, repoName, "Fix this issue too", "This issue must also be fixed, but the interesting thing is that it was generated automatically.")
-	println("Printing issues...")
-	PrintIssues(client, repoAuthor, repoName)
-}
-*/
-
 func getRepoInfo() (author, repo string) {
 	gitArgs := []string{"remote", "show", "origin"}
 	gitOutput, err := exec.Command("git", gitArgs...).Output()

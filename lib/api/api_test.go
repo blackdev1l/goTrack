@@ -16,7 +16,7 @@ func TestSetHooks(t *testing.T) {
 	}
 
 	SetHook(folder + "/tmp")
-	_, err = ioutil.ReadFile("tmp/.git/pre-commit")
+	_, err = ioutil.ReadFile("tmp/.git/hooks/pre-commit")
 	if err != nil {
 		t.Error(err)
 	}
